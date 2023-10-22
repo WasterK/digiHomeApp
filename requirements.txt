@@ -1,0 +1,7 @@
+flask
+flask-smorest
+requests
+sqlalchemy
+flask-sqlalchemy
+pandas
+openpyxl
