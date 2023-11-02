@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request_started
 import requests
-from DB.db_access import store_temp_humidity
+from DB.db_access import DatabaseAccess
 import json
 
 app = Flask(__name__)
@@ -17,7 +17,7 @@ def get_temperature():
     global bedroom_temperature
 
     # Make a GET request to your ESP32 to get the bedroom temperature
-    esp32_url = 'http://192.168.1.2/getBedroomTemp'  # Replace with your ESP32's IP address
+    esp32_url = 'http://192.168.187.238/getBedroomTemp'  # Replace with your ESP32's IP address
     response = requests.get(esp32_url)
 
     if response.status_code == 200:
@@ -30,7 +30,8 @@ def get_temperature():
                 "temperature": temperature,
                 "humidity": humidity
             }
-            store_temp_humidity(data)
+            db = DatabaseAccess()
+            db.store_temp_humidity(data)
         else:
             bedroom_temperature = 'Incomplete data from ESP32'
     elif response.status_code == 500:
