@@ -5,3 +5,4 @@ sqlalchemy
 flask-sqlalchemy
 pandas
 openpyxl
+gunicorn
