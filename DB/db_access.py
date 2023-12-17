@@ -2,6 +2,7 @@ import sqlite3
 import datetime
 import openpyxl
 import pandas as pd
+import logging
 
 
 class DatabaseAccess:
@@ -38,6 +39,11 @@ class DatabaseAccess:
         df = pd.DataFrame(data)
         print(df)
         df.to_excel(r"D:\projects_Flask\digihomeapp\output.xlsx", index=False)
+
+    def upload_logs(self, logData: dict) -> None:
+        logData = (logData['log1'], logData['log2'], logData["deviceID"])
+        self.cur.execute(f"INSERT INTO tbl_test_logs VALUES{logData}")
+        self.conn.commit()
 
 # db = DatabaseAccess()
 # db.export_to_excel()
